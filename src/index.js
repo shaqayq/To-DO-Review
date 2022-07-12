@@ -8,13 +8,13 @@ const newItem = document.querySelector('.newItem');
 const lists = document.querySelector('.lists');
 
 // check local storage is avilable
-function checklocal() {
+const checklocal = () => {
   if (localStorage.getItem('Do-Lists')) {
     doLists = JSON.parse(localStorage.getItem('Do-Lists'));
   } else {
     localStorage.setItem('Do-Lists', JSON.stringify(doLists));
   }
-}
+};
 
 checklocal();
 
@@ -96,9 +96,12 @@ funbtn.forEach((ele) => {
     // remove element
     trash.addEventListener('change', () => {
       const newLists = doLists.filter((e) => e.index != id);
-      for (let i = 0; i < newLists.length; i += 1) {
-        newLists[i].index = i;
-      }
+
+      let i = 0;
+      newLists.forEach((e) => {
+        e.index = i;
+        i += 1;
+      });
       localStorage.setItem('Do-Lists', JSON.stringify(newLists));
       window.location.reload();
     });
